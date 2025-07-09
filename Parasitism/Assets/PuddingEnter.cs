@@ -24,13 +24,16 @@ public class PuddingEnter : MonoBehaviour
         PlayerController.isInPudding = isInPudding;
         PlayerController.MoveSpeed = isInPudding ? MoveSpeedInPudding:MoveSpeedNormal;
         PlayerController.JumpForce = isInPudding ? JumpForceInPudding:JumpForceNormal;
-        rb.gravityScale = isInPudding ? 0.2f : 2f;
+        rb.gravityScale = isInPudding ? 0.2f : 1f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!collision.gameObject.CompareTag("Pudding"))return;
         isInPudding = true;
+        float velocityX = PlayerController.rb.velocity.x;
+        float velocityY = PlayerController.rb.velocity.y;
+        PlayerController.rb.velocity = new Vector2 (velocityX *0.4f, velocityY *0.2f);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -39,11 +42,4 @@ public class PuddingEnter : MonoBehaviour
         isInPudding = false;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        //if (Input.GetKeyDown(PlayerController.Shift)){
-        //    if (Input.GetKeyDown(PlayerController.W) || Input.GetKeyDown(PlayerController.S)) rb.AddForce(new Vector2(0, DashForce * PlayerController.upDir), ForceMode2D.Impulse);
-        //    if (Input.GetKeyDown(PlayerController.A) || Input.GetKeyDown(PlayerController.D)) rb.AddForce(new Vector2(DashForce * PlayerController.faceDir, 0), ForceMode2D.Impulse);
-        //}
-    }
 }

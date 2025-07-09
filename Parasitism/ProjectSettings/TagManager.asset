@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pudding
+  - Enemy
+  - Neutral
   layers:
   - Default
   - TransparentFX

@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour
             Dash(); return;
         }
 
-        if(PhysicsCheck.isGround||isInPudding) isJump = false;else isJump = true;//删去后半截变成二段跳
+        if(PhysicsCheck.isGround||isInPudding) isJump = false;
+        //else isJump = true;//删去后半截变成二段跳
         if (!isJump && Input.GetKeyDown(Space))
         {
             Jump();return;
