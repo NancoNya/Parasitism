@@ -21,7 +21,6 @@ public class NeutralScript : MonoBehaviour
             Character = collision.gameObject.GetComponent<Character>();
             if (Character == null) return;
             Character.MaxHP += Supplement * 0.5f;
-            Debug.Log(111);
             if (Character.HP + Supplement <= Character.MaxHP) Character.HP += Supplement; else Character.HP = Character.MaxHP;
             gameObject.SetActive(false);
         }

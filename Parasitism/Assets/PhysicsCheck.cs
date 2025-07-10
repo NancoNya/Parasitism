@@ -8,6 +8,7 @@ public class PhysicsCheck : MonoBehaviour
     public bool isGround;
     public bool touchLeftWall;
     public bool touchRightWall;
+    public bool isWall;
 
     [Header("检测数值")]
     public float checkRaduis;
@@ -27,9 +28,10 @@ public class PhysicsCheck : MonoBehaviour
     public void Check()
     {
         isGround = Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(bottomOffset.x * transform.localScale.normalized.x, bottomOffset.y), checkRaduis, groundLayer);
-          
         touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, wallLayer);
         touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, wallLayer);
+        if (touchLeftWall || touchRightWall) isWall = true; else isWall = false;
+
     }
 
     private void OnDrawGizmosSelected()

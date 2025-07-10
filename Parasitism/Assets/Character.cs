@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-
+    public float Multiply;//Gizmosçš„è£œå„Ÿ
     public GameObject Prefab;
-    [Header("½ÇÉ«ÊôÐÔ")]
+    [Header("è§’è‰²å±žæ€§")]
     public float HP;
     public float MaxHP;
+    public bool Size1;
     public bool isDead;
     void Start()
     {
+        Size1 = false;
         isDead = false;
         HP = MaxHP;
     }
@@ -35,9 +38,12 @@ public class Character : MonoBehaviour
     }
     public void Change()
     {
-        if(MaxHP >= 200)
+        if(MaxHP >= 200 && Size1 == false)
         {
             gameObject.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+            PhysicsCheck physicsCheck = gameObject.GetComponent<PhysicsCheck>();
+            physicsCheck.checkRaduis= physicsCheck.checkRaduis * Multiply;
+            Size1 = true;
         }
     }
 }
