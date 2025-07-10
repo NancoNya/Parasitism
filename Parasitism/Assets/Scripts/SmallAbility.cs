@@ -2,31 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClimbAbility : MonoBehaviour
+public class SmallAbility : MonoBehaviour
 {
     // Start is called before the first frame update
     public PlayerController PlayerController;
 
-    public float ClimbTime;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float SmallTime;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player")){
             PlayerController = collision.gameObject.GetComponent<PlayerController>();
             if (PlayerController == null) return;
-            PlayerController.canClimb = true;
-            PlayerController.cantEverClimb = false;
-            PlayerController.ClimbTimer = ClimbTime;
+            PlayerController.canSmall = true;
+            PlayerController.SmallTimer = SmallTime;
             gameObject.SetActive(false);
         }
     }

@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [Header("组件")]
     public Rigidbody2D rb;
     public PhysicsCheck PhysicsCheck;
+    public PuddingEnter PuddingEnter;
+    public Character Character;
 
     [Header("控制台参数")]
     public float JumpForce;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public bool isCool;
 
     [Header("攀爬功能")]
+    public GameObject ClimbObject;
     public bool canClimb;
     public float ClimbForce;
     public bool cantEverClimb;
@@ -41,19 +44,47 @@ public class PlayerController : MonoBehaviour
     public float everClimbTimer;
     public float ClimbTimer;
 
+    [Header("超級跳躍")]
+    public GameObject SuperObject;
+    public bool canSuper;
+    public float SuperForce;
+    public float NormalForce;
+    public float SuperTimer;
+
+    [Header("縮小道具")]
+    public GameObject SmallObject;
+    public bool canSmall;
+    public bool isSmall;
+    public float SmallTimer;
+    public int SmallCnt;    
+    
+    [Header("縮小道具")]
+    public GameObject BigObject;
+    public bool canBig;
+    public bool isBig;
+    public float BigTimer;
+    public int BigCnt;
+
     void Start()
     {
-        CoolDownTimer = 0;ClimbTimer = 0;everClimbTimer = 0;
-        isCool = false;cantEverClimb = false;canClimb = false;
-        isJump = false;
         rb = GetComponent<Rigidbody2D>();
         PhysicsCheck = GetComponent<PhysicsCheck>();
+        PuddingEnter = GetComponent<PuddingEnter>();
+        Character = GetComponent<Character>();
+        NormalForce = PuddingEnter.JumpForceNormal;
+        CoolDownTimer = 0;ClimbTimer = 1;everClimbTimer = 0;SmallCnt = 0;BigCnt = 0;
+        isCool = false;cantEverClimb = false;canClimb = false;
+        isJump = false;
+        isSmall = false;isBig = false;
     }
 
     void Update()
     {
         Climb();
         DashCool();
+        SuperJump();
+        Small();
+        Big();
         if (Input.GetKeyDown(S)) upDir = -1; else if (Input.GetKeyDown(W)||Input.GetKeyDown(Space)) upDir = 1;
         if (Input.GetKeyDown(A)) faceDir = -1; else if (Input.GetKeyDown(D)) faceDir = 1;
 
@@ -113,6 +144,7 @@ public class PlayerController : MonoBehaviour
 
     public void Climb()
     {
+        ClimbRespawn();
         ClimbCool();//阻斷攀爬功能
         EverClimbCool();
         if (canClimb && PhysicsCheck.isWall && !cantEverClimb)
@@ -133,6 +165,96 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void ClimbRespawn()
+    {
+        if (ClimbObject == null) return;
+        if (!canClimb && ClimbTimer <= 0) ClimbObject.SetActive(true);
+    }
     #endregion
 
+    #region 超高跳躍
+
+    public void SuperJump()
+    {
+        SuperRespawn();
+        SuperCool();
+        if (canSuper) PuddingEnter.JumpForceNormal = SuperForce; 
+        if(!canSuper) PuddingEnter.JumpForceNormal = NormalForce;
+    }
+
+    public void SuperCool()
+    {
+        if (canSuper) { SuperTimer -= Time.deltaTime; }
+        if (SuperTimer <= 0) { canSuper = false; }
+    }
+
+    public void SuperRespawn()
+    {
+        if (SuperObject == null) return;
+        if (!canSuper && SuperTimer <= 0) SuperObject.SetActive(true);
+    }
+    #endregion
+
+    #region 縮小道具
+
+    public void Small()
+    {
+        SmallCool();
+        SmallRespawn();
+        if (canSmall && !isSmall)
+        {
+            Character.HP -= 15;
+            SmallCnt = 1;
+            isSmall = true;
+        }
+    }
+    public void SmallCool()
+    {
+        if (canSmall) { SmallTimer -= Time.deltaTime; }
+        if (SmallTimer <= 0 && SmallCnt == 1) { canSmall = false; isSmall = false; SmallCnt--; Character.HP += 15; }
+    }
+
+    public void SmallRespawn()
+    {
+        if (SmallObject == null) return;
+        if (!canSmall && !isSmall) { SmallObject.SetActive(true); }
+    }
+
+    #endregion
+
+    #region 放大道具
+
+    public void Big()
+    {
+        BigCool();
+        BigRespawn();
+        if (canBig && !isBig)
+        {
+            Character.MaxHP += 15;
+            Character.HP += 15;
+            BigCnt = 1;
+            isBig = true;
+        }
+    }
+    public void BigCool()
+    {
+        if (canBig) { BigTimer -= Time.deltaTime; }
+        if (BigTimer <= 0 && BigCnt == 1) { canBig = false; isBig = false; BigCnt--; Character.HP -= 15; Character.MaxHP -= 15; }
+    }
+
+    public void BigRespawn()
+    {
+        if (BigObject == null) return;
+        if (!canBig && !isBig) { BigObject.SetActive(true); }
+    }
+
+    #endregion
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Climb")) ClimbObject = collision.gameObject;
+        if (collision.gameObject.CompareTag("Jump")) SuperObject = collision.gameObject;
+        if (collision.gameObject.CompareTag("Small")) SmallObject = collision.gameObject;
+        if (collision.gameObject.CompareTag("Big")) BigObject = collision.gameObject;
+    }
 }
