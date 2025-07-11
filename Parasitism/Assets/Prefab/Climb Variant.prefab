@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Climb Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2472108007018754835, guid: b8024f9a0cd94af4daaa3b6652d17655, type: 3}
+      propertyPath: m_TagString
+      value: Climb
+      objectReference: {fileID: 0}
     - target: {fileID: 5243650400093641377, guid: b8024f9a0cd94af4daaa3b6652d17655, type: 3}
       propertyPath: m_Color.b
       value: 0.9631903
@@ -60,7 +64,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5623784255591364329, guid: b8024f9a0cd94af4daaa3b6652d17655, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

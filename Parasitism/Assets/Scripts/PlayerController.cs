@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
         SuperJump();
         Small();
         Big();
+        Climb();
         if (Input.GetKeyDown(S)) upDir = -1; else if (Input.GetKeyDown(W)||Input.GetKeyDown(Space)) upDir = 1;
         if (Input.GetKeyDown(A)) faceDir = -1; else if (Input.GetKeyDown(D)) faceDir = 1;
 
