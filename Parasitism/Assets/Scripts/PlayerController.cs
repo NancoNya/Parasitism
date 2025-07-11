@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public PhysicsCheck PhysicsCheck;
     public PuddingEnter PuddingEnter;
     public Character Character;
+    public Transform Transform;
 
     [Header("控制台参数")]
     public float JumpForce;
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Transform = GetComponent<Transform>();
         PhysicsCheck = GetComponent<PhysicsCheck>();
         PuddingEnter = GetComponent<PuddingEnter>();
         Character = GetComponent<Character>();
@@ -80,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Climb();
+        Character.Turn = faceDir;
         DashCool();
         SuperJump();
         Small();
@@ -114,10 +116,12 @@ public class PlayerController : MonoBehaviour
         isJump = true;
     }
 
+    public float Turn;
     public void Move()
-    { 
+    {
+
         float DropSpeed = rb.velocity.y;
-        if (faceDir == -1) rb.velocity = new Vector2(faceDir * MoveSpeed, DropSpeed); else rb.velocity = new Vector2(faceDir * MoveSpeed, DropSpeed);
+        rb.velocity = new Vector2(faceDir * MoveSpeed, DropSpeed);
     }
 
     #region 布丁内衝刺相關
