@@ -17,7 +17,7 @@ public class Character : MonoBehaviour
     {
         isDead = false;
         HP = MaxHP;
-        physicsCheck = gameObject.GetComponent<PhysicsCheck>();
+        physicsCheck = GetComponent<PhysicsCheck>();
         OriginalRaduis = physicsCheck.checkRaduis;
     }
 

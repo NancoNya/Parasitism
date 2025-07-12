@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public float DropSpeed;
     public float DropSpeedMax;
     public float DropSpeedInPudding;
+    public float UpSpeedMax;
+    public float UpSpeedInPudding;
     public float DashForce;
     public int faceDir = 1;
     public int upDir;
@@ -93,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
         DropSpeed = rb.velocity.y;
         if (!isInPudding && DropSpeed <= DropSpeedMax) DropSpeed = DropSpeedMax; else if (isInPudding && DropSpeed <= DropSpeedInPudding) DropSpeed = DropSpeedInPudding;
-
+        if (!isInPudding && DropSpeed >= UpSpeedMax) DropSpeed = UpSpeedMax; else if (isInPudding && DropSpeed <= UpSpeedInPudding) DropSpeed = UpSpeedInPudding;
         if (Input.GetKey(Shift) && isInPudding)
         {
             Dash(); return;

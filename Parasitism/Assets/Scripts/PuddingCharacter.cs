@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PuddingCharacter : MonoBehaviour
 {
 
     public bool isIn;
     public Character Character;
-    public SpriteRenderer Renderer;
+    public Tilemap Renderer;
     public Character PlayerCharacter;
     public float Raise;
 
     void Start()
     {
         Character = GetComponent<Character>();   
-        Renderer = GetComponent<SpriteRenderer>();
+        Renderer = GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
