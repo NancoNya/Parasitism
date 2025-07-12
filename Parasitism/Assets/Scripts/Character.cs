@@ -23,8 +23,10 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        Dead();
-        Change();
+        if (!gameObject.CompareTag("Pudding"))
+        {
+            Dead(); Change();
+        }
     }
 
     public void Dead()
