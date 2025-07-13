@@ -17,6 +17,10 @@ PrefabInstance:
       value: Climb
       objectReference: {fileID: 0}
     - target: {fileID: 5243650400093641377, guid: b8024f9a0cd94af4daaa3b6652d17655, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 811ac156393454d4aa01f85bdb1e909c, type: 3}
+    - target: {fileID: 5243650400093641377, guid: b8024f9a0cd94af4daaa3b6652d17655, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}

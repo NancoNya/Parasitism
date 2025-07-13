@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public float everClimbTime;
     public float everClimbTimer;
     public float ClimbTimer;
+    public bool ClimbNot;
 
     [Header("超級跳躍")]
     public GameObject SuperObject;

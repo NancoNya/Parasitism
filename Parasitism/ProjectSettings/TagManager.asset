@@ -11,6 +11,7 @@ TagManager:
   - Jump
   - Small
   - Big
+  - Barrier
   layers:
   - Default
   - TransparentFX

@@ -20,4 +20,5 @@ public class ClimbAbility : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
 }

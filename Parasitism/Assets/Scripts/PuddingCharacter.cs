@@ -27,7 +27,7 @@ public class PuddingCharacter : MonoBehaviour
 
     public void Change()
     {
-        if(isIn) {Character.HP -= Time.deltaTime;PlayerCharacter.HP += Time.deltaTime;}
+        if(isIn) {Character.HP -= Time.deltaTime; PlayerCharacter.MaxHP += Time.deltaTime; PlayerCharacter.HP += Time.deltaTime;}
         else if(!isIn && Character.HP<Character.MaxHP) { Character.HP += Time.deltaTime * Raise;}
         if(Character.HP < 1) { Character.HP = 1;}
     }
