@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     public Sprite BigSprite;
     public Sprite SuperSprite;
     public Sprite ClimbSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,7 @@ public class UIController : MonoBehaviour
     {
         isOpen = PlayerController.isOpen;
     }
+
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -47,16 +49,48 @@ public class UIController : MonoBehaviour
 
     public void OpenPanel()
     {
-        if (isOpen&& (PlayerController.canSmall || PlayerController.canSuper || PlayerController.canBig || PlayerController.canClimb))
+        // 检查面板是否需要打开且存在有效的道具
+        if (isOpen && (PlayerController.canSmall || PlayerController.canSuper || PlayerController.canBig || PlayerController.canClimb))
         {
-            Panel.SetActive(isOpen);
-            if (PlayerController.canSmall) { Image.sprite = SmallSprite; Description.text = "You are Smaller in 10s"; }
-            if (PlayerController.canSuper) { Image.sprite = SuperSprite; Description.text = "You can Jump Higher in 10s"; }
-            if (PlayerController.canBig)   {Image.sprite = BigSprite; Description.text = "You are Bigger in 10s"; }
-            if (PlayerController.canClimb) {Image.sprite = ClimbSprite; Description.text = "You can Climb Wall in 10s"; }
+            Panel.SetActive(true);
+
+            // 获取四种道具的计时器值
+            float smallTimer = PlayerController.SmallTimer;
+            float superTimer = PlayerController.SuperTimer;
+            float bigTimer = PlayerController.BigTimer;
+            float climbTimer = PlayerController.ClimbTimer;
+
+            // 找到最大的计时器值
+            float maxTimer = Mathf.Max(smallTimer, superTimer, bigTimer, climbTimer);
+
+            // 根据最大计时器值显示对应的道具信息
+            if (maxTimer == smallTimer && PlayerController.canSmall)
+            {
+                Image.sprite = SmallSprite;
+                Description.text = $"You are Smaller in {smallTimer:F1}s";
+            }
+            else if (maxTimer == superTimer && PlayerController.canSuper)
+            {
+                Image.sprite = SuperSprite;
+                Description.text = $"You can Jump Higher in {superTimer:F1}s";
+            }
+            else if (maxTimer == bigTimer && PlayerController.canBig)
+            {
+                Image.sprite = BigSprite;
+                Description.text = $"You are Bigger in {bigTimer:F1}s";
+            }
+            else if (maxTimer == climbTimer && PlayerController.canClimb)
+            {
+                Image.sprite = ClimbSprite;
+                Description.text = $"You can Climb Wall in {climbTimer:F1}s";
+            }
+
             Time.timeScale = 0f;
         }
-
+        else
+        {
+            Panel.SetActive(false);
+        }
     }
 
     public void ClosePanel()
