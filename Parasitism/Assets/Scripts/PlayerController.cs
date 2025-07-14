@@ -258,11 +258,12 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    public bool isOpen;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Climb")) ClimbObject = collision.gameObject;
-        if (collision.gameObject.CompareTag("Jump")) SuperObject = collision.gameObject;
-        if (collision.gameObject.CompareTag("Small")) SmallObject = collision.gameObject;
-        if (collision.gameObject.CompareTag("Big")) BigObject = collision.gameObject;
+        if (collision.gameObject.CompareTag("Climb")){ ClimbObject = collision.gameObject; isOpen = true; }
+        if (collision.gameObject.CompareTag("Jump")) {SuperObject = collision.gameObject; isOpen=true; }
+        if (collision.gameObject.CompareTag("Small")){ SmallObject = collision.gameObject; isOpen = true;}
+        if (collision.gameObject.CompareTag("Big")) {BigObject = collision.gameObject; isOpen = true;}
     }
 }

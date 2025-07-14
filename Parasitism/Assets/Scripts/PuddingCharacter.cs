@@ -27,9 +27,9 @@ public class PuddingCharacter : MonoBehaviour
 
     public void Change()
     {
-        if(isIn) {Character.HP -= Time.deltaTime; PlayerCharacter.MaxHP += Time.deltaTime; PlayerCharacter.HP += Time.deltaTime;}
+        if(isIn&&Character.HP>1) {Character.HP -= Time.deltaTime; PlayerCharacter.MaxHP += Time.deltaTime * Raise; PlayerCharacter.HP += Time.deltaTime * Raise; }
         else if(!isIn && Character.HP<Character.MaxHP) { Character.HP += Time.deltaTime * Raise;}
-        if(Character.HP < 1) { Character.HP = 1;}
+        if(Character.HP <= 1) { Character.HP = 1;}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
